@@ -4,8 +4,9 @@
 
 #include "MyClientHandler.h"
 
-string MyTestClientHandler::handleClient(int socket) {
+string MyClientHandler::handleClient(int socket) {
     //TODO: mutex
+
     if (cm->doesSolutionExist(input)){
         return cm->getSolution(input);
     }

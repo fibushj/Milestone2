@@ -1,6 +1,7 @@
 
 #include "CommonServer.h"
-
+#include <vector>
+#include <thread>
 
 using namespace std;
 
@@ -25,10 +26,16 @@ void CommonServer::open(int port, ClientHandler cl) {
 
     setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
 
-    this->cl = cl;
+    vector<thread> allThreads;
     bool stop = false;
+    bool firstClient=true;
     while (!stop) {
         new_sock = accept(s, client, clilen);
+        if (firstClient) {
+            timeout.tv_sec = 1;
+            setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
+            firstClient=false;
+        }
         if (new_sock < 0) {
             if (errno == EWOULDBLOCK) {
                 stop = true;
@@ -37,9 +44,12 @@ void CommonServer::open(int port, ClientHandler cl) {
                 exit(3);
             }
         } else {
-            this->cl.handleClient(new_sock);
+            thread handleClientThread;
+            allThreads.push_back(handleClientThread);
+            handleClientThread = thread(cl.handleClient, new_sock);
         }
     }
+    //TODO: join threads (delete?)
     stop();
 }
 

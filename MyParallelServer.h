@@ -4,7 +4,7 @@
 #define MILESTONE2_MYSERIALSERVER_H
 #include "CommonServer.h"
 
-class MySerialServer : public CommonServer{
+class MyParallelServer : public CommonServer{
     virtual void start(struct sockaddr * client, socklen_t * clilen)=0;
 
 };

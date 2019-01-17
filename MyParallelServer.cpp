@@ -1,10 +1,10 @@
 /*
 
-#include "MySerialServer.h"
+#include "MyParallelServer.h"
 #define BUFFER_SIZE 4096
 using namespace std;
 
-virtual void MySerialServer::start(struct sockaddr *client, socklen_t *clilen) {
+virtual void MyParallelServer::start(struct sockaddr *client, socklen_t *clilen) {
     int new_sock;
     char buffer[BUFFER_SIZE];
     while (true) {
