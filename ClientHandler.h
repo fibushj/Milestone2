@@ -8,7 +8,7 @@ using namespace std;
 
 class ClientHandler {
 public:
-    virtual string handleClient()=0;
+    virtual string handleClient(string input)=0;
 };
 
 #endif //MILESTONE2_CLIENTHANDLER_H

@@ -14,7 +14,6 @@ ISearchable<MatrixEntry> *MatrixFactory::GenerateMatrix(string str, int rows) {
         if (str[i] == COMMA) {
             columns++;
         }
-        i++;
     }
     columns++;
     int **matrix = new int *[rows];

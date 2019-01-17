@@ -39,7 +39,7 @@ Matrix::getAllPossibleStates(State<MatrixEntry> *state) {
                 generateStateFromEntry(
                         MatrixEntry(xCoordinate - 1, yCoordinate), state));
     }
-    if (xCoordinate < matrixWidth - 1 &&
+    if (xCoordinate < matrixHeight - 1 &&
         matrix[xCoordinate + 1][yCoordinate] != -1) {
         possibleStates.insert(
                 generateStateFromEntry(
@@ -50,7 +50,7 @@ Matrix::getAllPossibleStates(State<MatrixEntry> *state) {
                 generateStateFromEntry(
                         MatrixEntry(xCoordinate, yCoordinate - 1), state));
     }
-    if (yCoordinate < matrixHeight - 1 &&
+    if (yCoordinate < matrixWidth - 1 &&
         matrix[xCoordinate][yCoordinate + 1] != -1) {
         possibleStates.insert(
                 generateStateFromEntry(

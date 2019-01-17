@@ -30,18 +30,19 @@ public:
         return open.size();
     }
 
-    virtual State<T> *search(ISearchable<T> &searchable) {
+    virtual string search(ISearchable<T> &searchable) {
         open.push(searchable.getInitialState());
         while (open.size() > 0) {
             State<T> *n = popOpenList();
+            std::cout<<n->getStateDescriptor().getX() << "," <<n->getStateDescriptor().getY()<< " " <<n->getCost()<<endl;
             CommonSearcher<T>::closed.insert(n);
             if (searchable.isGoalState(n)) {
                 std::cout<<"Matrix " << numberMatrix++ <<": "<<CommonSearcher<T>::evaluatedNodes<< "nodes evaluated\n" <<endl;
-                return n;
+                return CommonSearcher<T>::backtracePath(n);
             }
             set<State<T> *> successors = searchable.getAllPossibleStates(n);
             for (auto &state : successors) {
-                bool isInClosed = doesClosedContainsState(state);
+                bool isInClosed = doesClosedcontainsState(state);
                 if (!isInClosed && !open.contains(state)) {
                     open.push(state);
                 } else {
@@ -51,9 +52,10 @@ public:
                 }
             }
         }
+        return "-1";
     }
 
-    bool doesClosedContainsState(State<T> *desiredState) {
+    bool doesClosedcontainsState(State<T> *desiredState) {
         for (auto &state: CommonSearcher<T>::closed) {
             if (*desiredState == *state) {
                 return true;
@@ -63,14 +65,17 @@ public:
 
     }
 
-    virtual void resetData() {
+    virtual void clearData() {
         for (auto &state : CommonSearcher<T>::allStatesCreated) {
             delete state;
         }
         CommonSearcher<T>::allStatesCreated.clear();
         CommonSearcher<T>::closed.clear();
         CommonSearcher<T>::evaluatedNodes = 0;
-        
+    }
+
+    virtual ~BestFirstSearch() {
+        clearData();
     }
 
     static int numberMatrix;

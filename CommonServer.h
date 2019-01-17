@@ -1,4 +1,3 @@
-/*
 
 #ifndef MILESTONE2_COMMONSERVER_H
 #define MILESTONE2_COMMONSERVER_H
@@ -15,7 +14,7 @@ protected:
     int socket;
     ClientHandler cl;
 public:
-    virtual void start(struct sockaddr * client, socklen_t * clilen)=0;
+
 
     virtual void open(int port, ClientHandler cl);
 
@@ -24,4 +23,3 @@ public:
 
 
 #endif //MILESTONE2_COMMONSERVER_H
-*/

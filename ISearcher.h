@@ -7,12 +7,12 @@
 
 #include "State.h"
 #include "ISearchable.h"
-
+#include <string>
 template<class T>
 class ISearcher {
 public:
 
-    virtual State<T> *search(ISearchable<T> &searchable)=0;
+    virtual string search(ISearchable<T> &searchable)=0;
 
     virtual int getNumberOfNodesEvaluated()=0;
 

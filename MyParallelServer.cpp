@@ -1,7 +1,7 @@
 /*
 
 #include "MySerialServer.h"
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 4096
 using namespace std;
 
 virtual void MySerialServer::start(struct sockaddr *client, socklen_t *clilen) {
