@@ -1,4 +1,4 @@
-/*
+
 #include "CommonServer.h"
 
 
@@ -6,7 +6,9 @@ using namespace std;
 
 void CommonServer::open(int port, ClientHandler cl) {
     int s = socket(AF_INET, SOCK_STREAM, 0);
-    struct sockaddr_in serv;
+    struct sockaddr_in serv, client;
+    bzero((char *) &serv, sizeof(serv));
+    bzero((char *) &client, sizeof(client));
     serv.sin_addr.s_addr = INADDR_ANY;
     serv.sin_port = htons(port);
     serv.sin_family = AF_INET;
@@ -14,26 +16,34 @@ void CommonServer::open(int port, ClientHandler cl) {
         cerr << "Bad!" << endl;
     }
 
-    int new_sock;
     listen(s, SOMAXCONN);
-    struct sockaddr_in client;
     socklen_t clilen = sizeof(client);
 
     timeval timeout;
-    timeout.tv_sec = 10;
+    timeout.tv_sec = 0;
     timeout.tv_usec = 0;
 
     setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
 
-
-    this->socket = s;
     this->cl = cl;
-
-    start((struct sockaddr *) &client, &clilen);
+    bool stop = false;
+    while (!stop) {
+        new_sock = accept(s, client, clilen);
+        if (new_sock < 0) {
+            if (errno == EWOULDBLOCK) {
+                stop = true;
+            } else {
+                perror("other error");
+                exit(3);
+            }
+        } else {
+            this->cl.handleClient(new_sock);
+        }
+    }
+    stop();
 }
 
 void CommonServer::stop() {
     close(this->socket);
 
 }
-*/
