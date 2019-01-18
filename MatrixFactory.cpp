@@ -4,7 +4,7 @@
 
 #include "MatrixFactory.h"
 
-ISearchable<MatrixEntry> *MatrixFactory::GenerateMatrix(string str, int rows) {
+ISearchable<MatrixEntry> *MatrixFactory::GenerateMatrix(string str) {
     int columns = 0;
     int i = 0;
     for (i = 0; i < str.length(); i++) {
@@ -16,9 +16,16 @@ ISearchable<MatrixEntry> *MatrixFactory::GenerateMatrix(string str, int rows) {
         }
     }
     columns++;
+    int rows = 0;
+    for (i = 0; i < str.length(); i++) {
+        if (str[i] == NEW_LINE) {
+            rows++;
+        }
+    }
+    rows-=3;
     int **matrix = new int *[rows];
-    string currValue;
     int k = 0;
+    string currValue;
     for (i = 0; i < rows; i++) {
         matrix[i] = new int[columns];
         int j = 0;
@@ -78,6 +85,7 @@ ISearchable<MatrixEntry> *MatrixFactory::GenerateMatrix(string str, int rows) {
     }
     col2 = stoi(currValue);
     currValue = "";
-    return new Matrix(columns, rows, matrix, MatrixEntry(row1, col1), MatrixEntry(row2, col2));
+    return new Matrix(columns, rows, matrix, MatrixEntry(row1, col1),
+                      MatrixEntry(row2, col2));
     //TODO: free memory when needed
 }

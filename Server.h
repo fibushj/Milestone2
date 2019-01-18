@@ -8,9 +8,9 @@
 namespace server_side {
     class Server {
 
-        virtual void open(int port, ClientHandler cl)=0;
+        virtual void open(int port, ClientHandler *cl)=0;
 
-        virtual void stop()=0;
+        virtual void stop(int socket)=0;
     };
 }
 #endif //MILESTONE2_SERVER_H

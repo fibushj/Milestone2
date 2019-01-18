@@ -37,7 +37,7 @@ public:
             std::cout<<n->getStateDescriptor().getX() << "," <<n->getStateDescriptor().getY()<< " " <<n->getCost()<<endl;
             CommonSearcher<T>::closed.insert(n);
             if (searchable.isGoalState(n)) {
-                std::cout<<"Matrix " << numberMatrix++ <<": "<<CommonSearcher<T>::evaluatedNodes<< "nodes evaluated\n" <<endl;
+//                std::cout<<"Matrix " << numberMatrix++ <<": "<<CommonSearcher<T>::evaluatedNodes<< "nodes evaluated\n" <<endl;
                 return CommonSearcher<T>::backtracePath(n);
             }
             set<State<T> *> successors = searchable.getAllPossibleStates(n);

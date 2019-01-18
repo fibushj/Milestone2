@@ -32,10 +32,12 @@ void FileCacheManager::saveSolution(string problem, string solution) {
 void FileCacheManager::saveCacheToFile() {
     ofstream ofs;
     ofs.open(this->fileName);
-    for (auto &it : cache) {
-        //writing both the problem and the corresponding solution to the file
-        ofs << it.first << endl;
-        ofs << it.second << endl;
+    if (ofs.good()) {
+        for (auto &it : cache) {
+            //writing both the problem and the corresponding solution to the file
+            ofs << it.first;
+            ofs << it.second << endl;
+        }
     }
     ofs.close();
 }
@@ -43,17 +45,18 @@ void FileCacheManager::saveCacheToFile() {
 void FileCacheManager::loadCacheFromFile() {
     ofstream ofs;
     // if the file exists, just opening it. If it doesn't exist, creating it */
-    ofs.open(this->fileName);
+    ofs.open(this->fileName, ios::app);
     /* the mere use of the above operation was to create the file in case it's
      * the first time */
     ofs.close();
 
     ifstream ifs;
-    ifs.open(this->fileName);
+    ifs.open(this->fileName, ios::app);
     string problem, solution;
     if (ifs.good()) {
         while (getline(ifs, problem)) {
             getline(ifs, solution);
+            problem+="\n";
             cache[problem] = solution;
         }
     }

@@ -11,7 +11,7 @@ using namespace std;
 
 class MatrixFactory {
 public:
-    static ISearchable<MatrixEntry>* GenerateMatrix(string str, int rows);
+    static ISearchable<MatrixEntry>* GenerateMatrix(string str);
 
 };
 
