@@ -18,21 +18,23 @@ public:
         heuristicCost = 0;
     }
 
-    ~State() {} //TODO
-
     T getStateDescriptor() { return state; }
 
     double getCost() { return cost; }
 
     double getHeuristicCost() { return heuristicCost; }
 
-    void setHeuristicCost(double heuristicCost) { this->heuristicCost = heuristicCost; }
+    void setHeuristicCost(
+            double heuristicCost) { this->heuristicCost = heuristicCost; }
 
     State<T> *getPrecedingState() { return cameFrom; }
 
     void setPrecedingState(State<T> *cameFrom) { this->cameFrom = cameFrom; }
 
     bool operator==(State<T> &otherState);
+
+    ~State() {}
+
 };
 
 

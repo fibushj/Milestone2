@@ -6,7 +6,7 @@
 string SearcherSolver::solve(string problem) {
     string solution;
     ISearchable<MatrixEntry> *matrix = MatrixFactory::GenerateMatrix(problem);
-    AStar<MatrixEntry> astar; //TODO ASTAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    AStar<MatrixEntry> astar;
     solution=astar.search(*matrix);
     delete matrix;
     return solution;

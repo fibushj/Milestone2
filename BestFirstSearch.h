@@ -5,7 +5,6 @@
 
 #include "CommonSearcher.h"
 #include "PriorityQueue.h"
-#include <iostream>
 
 template<class T>
 class BestFirstSearch : public CommonSearcher<T> {
@@ -15,8 +14,6 @@ private:
 
     State<T> *popOpenList() {
         CommonSearcher<T>::evaluatedNodes++;
-        /*the false values indicates that the states in the priority queue are
-         * sorted by the heuristic cost */
         return open.pop(false);
     }
 
@@ -49,8 +46,6 @@ public:
     virtual unsigned long long int openListSize() {
         return open.size();
     }
-
-
 
     virtual ~BestFirstSearch() {
     }

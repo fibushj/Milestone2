@@ -5,37 +5,37 @@
 #include "CommonSearcher.h"
 #include "PriorityQueue.h"
 #include <iostream>
+
 template<class T>
 class AStar : public CommonSearcher<T> {
 private:
 
     PriorityQueue<T> open;
 
-
 public:
 
     virtual string search(ISearchable<T> &searchable) {
         State<T> *initialState = searchable.getInitialState();
-        initialState->setHeuristicCost(calculateHeuristicOfState(initialState,
-                                                                 searchable.getGoalEntry()));
+        initialState->setHeuristicCost
+                (calculateHeuristicOfState(initialState,
+                                           searchable.getGoalEntry()));
         open.push(initialState);
         while (open.size() > 0) {
             State<T> *n = popOpenList();
-//            std::cout << n->getStateDescriptor().getX() << ","
-//                      << n->getStateDescriptor().getY() << " " << n->getHeuristicCost()
-//                      << endl;
             CommonSearcher<T>::closed.insert(n);
             if (searchable.isGoalState(n)) {
                 return CommonSearcher<T>::backtracePath(n);
             }
             set<State<T> *> successors = searchable.getAllPossibleStates(n);
             for (auto &state : successors) {
-                bool isInClosed =  CommonSearcher<T>::doesClosedContainState(state);
+                bool isInClosed = CommonSearcher<T>::doesClosedContainState(
+                        state);
                 if (isInClosed) {
                     continue;
                 }
-                double heuristicCost = calculateHeuristicOfState(state,
-                                                                 searchable.getGoalEntry());
+                double heuristicCost = calculateHeuristicOfState
+                        (state,
+                         searchable.getGoalEntry());
                 state->setHeuristicCost(heuristicCost);
                 if (!open.contains(state)) {
                     open.push(state);
@@ -63,6 +63,7 @@ private:
     }
 
 private:
+    /* The heuristic is Manhattan distance */
     double calculateHeuristicOfState(State<T> *state, T goalEntry) {
         int deltaX = goalEntry.getX() - state->getStateDescriptor().getX();
         int deltaY = goalEntry.getY() - state->getStateDescriptor().getY();
@@ -80,7 +81,6 @@ private:
         } else {
             return state->getCost() + deltaX + deltaY;
         }
-
     }
 };
 

@@ -20,7 +20,10 @@ public:
     void push(State<T> *state);
 
     State<T> *pop(bool isHeuristic);
-
+    /* the boolean isHeuristic (in the above and in the following method)
+     * are used to differentiate between the cases of whether the current
+     * algorithm uses a heuristic function, thus prioritizing the queue elements
+     * accordingly */
     void AdjustPriorityIfNeeded(State<T> *newState, bool isHeuristic);
 };
 

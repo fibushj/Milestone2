@@ -10,7 +10,7 @@
 namespace boot {
     class Main {
     public:
-        int main(int port) {
+        void main(int port) {
             FileCacheManager *fileCacheManager = new FileCacheManager(
                     "cache.txt");
             SearcherSolver *solver = new SearcherSolver();
@@ -21,8 +21,6 @@ namespace boot {
             delete fileCacheManager;
             delete solver;
             delete clientHandler;
-            return 0;
-
         }
     };
 }
@@ -42,5 +40,6 @@ int main(int argc, char *argv[]) {
 //    best.search(*a);
 
     boot::Main m;
-    return m.main(stoi(argv[1]));
+    m.main(stoi(argv[1]));
+    return 0;
 }

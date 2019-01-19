@@ -22,10 +22,13 @@ ISearchable<MatrixEntry> *MatrixFactory::GenerateMatrix(string str) {
             rows++;
         }
     }
+    /*removing from the count the last three messages from the client, which all
+    contain \n */
     rows-=3;
     int **matrix = new int *[rows];
     int k = 0;
     string currValue;
+    //performing parsing
     for (i = 0; i < rows; i++) {
         matrix[i] = new int[columns];
         int j = 0;
@@ -45,11 +48,13 @@ ISearchable<MatrixEntry> *MatrixFactory::GenerateMatrix(string str) {
                 currValue += str[k];
             }
         }
-        //treat last element
+        //treating last element
         matrix[i][j] = stoi(currValue);
         currValue = "";
     }
     int row1, col1, row2, col2;
+    /* treating the two messages from the client that indicate the start and end
+     * enries in the matrix */
     for (k; k < str.length(); k++) {
         if (str[k] == SPACE) {
             continue;
@@ -67,7 +72,7 @@ ISearchable<MatrixEntry> *MatrixFactory::GenerateMatrix(string str) {
     }
     col1 = stoi(currValue);
     currValue = "";
-
+    //treating the end entry
     for (k; k < str.length(); k++) {
         if (str[k] == SPACE) {
             continue;
@@ -87,5 +92,4 @@ ISearchable<MatrixEntry> *MatrixFactory::GenerateMatrix(string str) {
     currValue = "";
     return new Matrix(columns, rows, matrix, MatrixEntry(row1, col1),
                       MatrixEntry(row2, col2));
-    //TODO: free memory when needed
 }

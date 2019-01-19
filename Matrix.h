@@ -9,7 +9,7 @@ class Matrix : public ISearchable<MatrixEntry> {
 private:
     int matrixWidth;
     int matrixHeight;
-    int **matrix; //TODO - espically in constructor assignment
+    int **matrix;
     MatrixEntry startEntry;
     MatrixEntry goalEntry;
     set<State<MatrixEntry> *> allStatesCreated;

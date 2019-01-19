@@ -39,7 +39,7 @@ void MyParallelServer::open(int port, ClientHandler *cl) {
             firstClient = false;
         }
         if (new_sock < 0) {
-
+            //in case of timeout, accepting no more clients
             if (errno == EWOULDBLOCK) {
                 stopLoop = true;
             } else {
@@ -47,11 +47,9 @@ void MyParallelServer::open(int port, ClientHandler *cl) {
                 exit(3);
             }
         } else {
-            // cl.handleClient(new_sock);
             thread handleClientThread(MyParallelServer::handleClientInThread,
                                       new_sock, cl);
             allThreads.push_back(move(handleClientThread));
-
         }
     }
 

@@ -1,7 +1,6 @@
 
 #include "FileCacheManager.h"
 #include <fstream>
-#include "StaticCollection.h"
 
 FileCacheManager::FileCacheManager(string fileName) {
     this->fileName = fileName;

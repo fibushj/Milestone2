@@ -1,5 +1,4 @@
-/* This is an object adapter
- */
+/* This is an object adapter */
 
 #ifndef MILESTONE2_SEARCHERSOLVER_H
 #define MILESTONE2_SEARCHERSOLVER_H
