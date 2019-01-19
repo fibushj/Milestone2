@@ -68,11 +68,12 @@ Matrix::getAllPossibleStates(State<MatrixEntry> *state) {
 
 
 Matrix::~Matrix() {
-    for (auto &state : allStatesCreated) {
+    for (auto state : allStatesCreated) {
         delete state;
+        state=nullptr;
     }
     for (int i = 0; i < matrixHeight; i++) {
         delete matrix[i];
     }
-    delete matrix;
+    delete[] matrix;
 }

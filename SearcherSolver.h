@@ -8,6 +8,9 @@
 
 class SearcherSolver : public Solver<string, string> {
     virtual string solve(string problem);
+
+public:
+    virtual ~SearcherSolver(){};
 };
 
 
