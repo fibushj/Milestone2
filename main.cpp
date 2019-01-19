@@ -26,19 +26,6 @@ namespace boot {
 }
 
 int main(int argc, char *argv[]) {
-
-//    FileCacheManager fileCacheManager("cache.txt");
-//    bool b=fileCacheManager.doesSolutionExist("hi\n");
-//    fileCacheManager.saveSolution("hi\n", "bye");
-//    string s=fileCacheManager.getSolution("hi\n");
-    string str =
-            "1, 2, 3\n3, 1, 89\n4, 3,4\n0,0\n 2,2\nend\n";
-    ISearchable<MatrixEntry> *a = MatrixFactory::GenerateMatrix(str);
-    AStar<MatrixEntry> best;
-    cout << best.search(*a) << endl;
-//    best.clearData();
-//    best.search(*a);
-
     boot::Main m;
     m.main(stoi(argv[1]));
     return 0;

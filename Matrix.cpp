@@ -21,6 +21,7 @@ State<MatrixEntry> *Matrix::generateStateFromEntry
                                        predecessor);
     }
     allStatesCreated.insert(state);
+    return state;
 }
 
 State<MatrixEntry> *Matrix::getInitialState() {

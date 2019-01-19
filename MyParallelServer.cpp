@@ -53,10 +53,7 @@ void MyParallelServer::open(int port, ClientHandler *cl) {
         }
     }
 
-    int ab = 1; //TODO delete
     for (auto &t : allThreads) {
-        cout << "joined thread " << ab << endl;
-        ab++;
         t.join();
     }
 
@@ -69,6 +66,5 @@ void MyParallelServer::stop(int socket) {
 }
 
 void MyParallelServer::handleClientInThread(int socket, ClientHandler *cl) {
-    cout << "thread1" << endl;
     cl->handleClient(socket);
 }

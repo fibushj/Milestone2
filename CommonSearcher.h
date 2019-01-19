@@ -51,8 +51,6 @@ public:
         return false;
     }
     virtual string backtracePath(State<T> *state) {
-        int i=0;
-        cout<<"sum: "<<state->getCost()<<endl;
         stack<string> reversedOrder;
         while (state->getPrecedingState() != nullptr) {
             i++;
@@ -61,7 +59,6 @@ public:
             reversedOrder.push(currDirection);
             state = state->getPrecedingState();
         }
-        cout<<"length: " <<i<<endl;
         string directions;
         while (reversedOrder.size() > 1) {
             directions += reversedOrder.top() + ", ";
