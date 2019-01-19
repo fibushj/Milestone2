@@ -9,9 +9,8 @@
 #include <string.h>
 #include <iostream>
 #define BUFFER_SIZE 4096
-
+#define ENDLINE '\n'
 void MyClientHandler::handleClient(int socket) {
-    //TODO: mutex
     string input;
     char buffer[BUFFER_SIZE];
     bool endEncountered = false;
@@ -32,9 +31,13 @@ void MyClientHandler::handleClient(int socket) {
         solution = solver->solve(input);
     }
     cm->saveSolution(input, solution);
-    solution+='\n';
+    solution+=ENDLINE;
     const char *message=solution.c_str();
     int n=write(socket, message, strlen(message));
+    if (n < 0) {
+        perror("ERROR writing to socket");
+    }
+
     close(socket);
 
 }

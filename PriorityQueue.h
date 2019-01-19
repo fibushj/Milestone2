@@ -13,21 +13,21 @@ private:
     vector<State<T> *> states;
 
 public:
-    int size() { return states.size(); }
+    unsigned long long int size() { return states.size(); }
 
-    bool contains(State<T> *state);
+    bool contains(State<T> *desiredState);
 
     void push(State<T> *state);
 
-    State<T> *pop();
+    State<T> *pop(bool isHeuristic);
 
-    void AdjustPriorityIfNeeded(State<T> *state);
+    void AdjustPriorityIfNeeded(State<T> *newState, bool isHeuristic);
 };
 
 template<class T>
 bool PriorityQueue<T>::contains(State<T> *desiredState) {
     for (auto &state: states) {
-        if (state == desiredState) {
+        if (*state == *desiredState) {
             return true;
         }
     }
@@ -40,30 +40,49 @@ void PriorityQueue<T>::push(State<T> *state) {
 }
 
 template<class T>
-State<T> *PriorityQueue<T>::pop() {
+State<T> *PriorityQueue<T>::pop(bool isHeuristic) {
     if (states.size() == 0) {
         throw "No elements in queue";
     }
     State<T> *minimalState = states[0];
     int minimalStateIndex, index;
     minimalStateIndex = index = 0;
-    for (auto &state: states) {
-        if (state->getCost() < minimalState->getCost()) {
-            minimalState = state;
-            minimalStateIndex = index;
+    if (!isHeuristic) {
+        for (auto &state: states) {
+            if (state->getCost() < minimalState->getCost()) {
+                minimalState = state;
+                minimalStateIndex = index;
+            }
+            ++index;
         }
-        ++index;
+    }
+    else {
+        for (auto &state: states) {
+            if (state->getHeuristicCost() < minimalState->getHeuristicCost()) {
+                minimalState = state;
+                minimalStateIndex = index;
+            }
+            ++index;
+        }
     }
     states.erase(states.begin() + minimalStateIndex);
     return minimalState;
 }
 
 template<class T>
-void PriorityQueue<T>::AdjustPriorityIfNeeded(State<T> *newState) {
+void
+PriorityQueue<T>::AdjustPriorityIfNeeded(State<T> *newState, bool isHeuristic) {
     for (auto &state: states) {
         if (*state == *newState) {
             if (newState->getCost() < state->getCost()) {
-                state = newState;
+                if (!isHeuristic) {
+                    state = newState;
+                } else {
+                    if (newState->getHeuristicCost() <
+                        state->getHeuristicCost()) {
+                        state = newState;
+                    }
+                }
             }
             return;
         }

@@ -18,6 +18,8 @@ public:
 
     virtual set<State<T> *> getAllPossibleStates(State<T> *state) = 0;
 
+    virtual T getGoalEntry()=0;
+
     virtual ~ISearchable() {};
 
 };

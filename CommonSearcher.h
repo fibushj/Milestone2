@@ -5,13 +5,12 @@
 #include "ISearcher.h"
 #include <stack>
 #include "MatrixEntry.h"
-
+#include <iostream>
 template<class T>
 class CommonSearcher : public ISearcher<T> {
 
 protected:
     set<State<T> *> closed;
-    set<State<T> *> allStatesCreated;
     int evaluatedNodes;
 
 public:
@@ -22,13 +21,11 @@ public:
     virtual ~CommonSearcher() {
     }
 
-    virtual int openListSize()=0;
+    virtual unsigned long long int openListSize()=0;
 
     virtual int getNumberOfNodesEvaluated() final { return evaluatedNodes; }
 
     virtual string search(ISearchable<T> &searchable)=0;
-
-    virtual void clearData()=0; //TODO
 
     virtual string getRelationInDirection(State<T> *state1, State<T> *state2) {
         T t1 = state1->getStateDescriptor();
@@ -45,15 +42,26 @@ public:
             return "Left";
         }
     }
-
+    bool doesClosedContainState(State<T> *desiredState) {
+        for (auto &state: closed) {
+            if (*desiredState == *state) {
+                return true;
+            }
+        }
+        return false;
+    }
     virtual string backtracePath(State<T> *state) {
+        int i=0;
+        cout<<"sum: "<<state->getCost()<<endl;
         stack<string> reversedOrder;
         while (state->getPrecedingState() != nullptr) {
+            i++;
             string currDirection = getRelationInDirection(
                     state->getPrecedingState(), state);
             reversedOrder.push(currDirection);
             state = state->getPrecedingState();
         }
+        cout<<"length: " <<i<<endl;
         string directions;
         while (reversedOrder.size() > 1) {
             directions += reversedOrder.top() + ", ";

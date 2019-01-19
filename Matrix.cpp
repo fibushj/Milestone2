@@ -1,6 +1,3 @@
-//
-// Created by Jonathan on 14/01/2019.
-//
 
 #include "Matrix.h"
 
@@ -12,13 +9,17 @@ Matrix::Matrix(int matrixWidth, int matrixHeight, int **matrix,
 
 State<MatrixEntry> *Matrix::generateStateFromEntry(MatrixEntry entry,
                                                    State<MatrixEntry> *predecessor) {
+    State<MatrixEntry> *state;
     if (predecessor == nullptr) {
-        return new State<MatrixEntry>(entry, matrix[entry.getX()][entry.getY()],
-                                      predecessor);
+        /* Note to myself - I corrected from the cost being the matrix entry to
+         * 0 since we're already there */
+        state = new State<MatrixEntry>(entry, 0, predecessor);
+    } else {
+        state = new State<MatrixEntry>(entry, predecessor->getCost() +
+                                              matrix[entry.getX()][entry.getY()],
+                                       predecessor);
     }
-    return new State<MatrixEntry>(entry, predecessor->getCost() +
-                                         matrix[entry.getX()][entry.getY()],
-                                  predecessor);
+    allStatesCreated.insert(state);
 }
 
 State<MatrixEntry> *Matrix::getInitialState() {
@@ -61,5 +62,11 @@ Matrix::getAllPossibleStates(State<MatrixEntry> *state) {
 
 
 Matrix::~Matrix() {
-
+    for (auto &state : allStatesCreated) {
+        delete state;
+    }
+    for (int i = 0; i < matrixHeight; i++) {
+        delete matrix[i];
+    }
+    delete matrix;
 }

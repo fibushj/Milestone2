@@ -33,7 +33,7 @@ void MyParallelServer::open(int port, ClientHandler *cl) {
     while (!stopLoop) {
         int new_sock = accept(s, (struct sockaddr *) &client, &clilen);
         if (firstClient) {
-            timeout.tv_sec = 10;
+            timeout.tv_sec = 1;
             setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout,
                        sizeof(timeout));
             firstClient = false;
@@ -61,7 +61,7 @@ void MyParallelServer::open(int port, ClientHandler *cl) {
         ab++;
         t.join();
     }
-    //TODO: join threads (delete?)
+
     stop(s);
 }
 
@@ -71,6 +71,6 @@ void MyParallelServer::stop(int socket) {
 }
 
 void MyParallelServer::handleClientInThread(int socket, ClientHandler *cl) {
-    cout<<"thread1"<<endl;
+    cout << "thread1" << endl;
     cl->handleClient(socket);
 }

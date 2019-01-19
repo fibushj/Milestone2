@@ -1,12 +1,13 @@
 
 #include "SearcherSolver.h"
-#include "BestFirstSearch.h"
+#include "AStar.h"
 #include "MatrixFactory.h"
 
 string SearcherSolver::solve(string problem) {
     string solution;
     ISearchable<MatrixEntry> *matrix = MatrixFactory::GenerateMatrix(problem);
-    BestFirstSearch<MatrixEntry> bfs; //TODO ASTAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    solution=bfs.search(*matrix);
+    AStar<MatrixEntry> astar; //TODO ASTAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    solution=astar.search(*matrix);
+    delete matrix;
     return solution;
 }

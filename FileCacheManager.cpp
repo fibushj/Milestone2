@@ -1,10 +1,7 @@
-//
-// Created by Jonathan on 13/01/2019.
-//
 
 #include "FileCacheManager.h"
 #include <fstream>
-
+#include "StaticCollection.h"
 
 FileCacheManager::FileCacheManager(string fileName) {
     this->fileName = fileName;
@@ -17,15 +14,26 @@ FileCacheManager::~FileCacheManager() {
 
 
 bool FileCacheManager::doesSolutionExist(string problem) {
-    return cache.count(problem) == 1;
+    StaticCollection::swapEndlineWithDollar(problem);
+    StaticCollection::m.lock();
+    bool result = cache.count(problem) == 1;
+    StaticCollection::m.unlock();
+    return result;
 }
 
 string FileCacheManager::getSolution(string problem) {
-    return cache.at(problem);
+    StaticCollection::swapEndlineWithDollar(problem);
+    StaticCollection::m.lock();
+    string &solution = cache.at(problem);
+    StaticCollection::m.unlock();
+    return solution;
 }
 
 void FileCacheManager::saveSolution(string problem, string solution) {
+    StaticCollection::swapEndlineWithDollar(problem);
+    StaticCollection::m.lock();
     cache[problem] = solution;
+    StaticCollection::m.unlock();
 }
 
 
@@ -34,8 +42,8 @@ void FileCacheManager::saveCacheToFile() {
     ofs.open(this->fileName);
     if (ofs.good()) {
         for (auto &it : cache) {
-            //writing both the problem and the corresponding solution to the file
-            ofs << it.first;
+            //writing the problem and the corresponding solution to the file
+            ofs << it.first << endl;
             ofs << it.second << endl;
         }
     }
@@ -56,7 +64,7 @@ void FileCacheManager::loadCacheFromFile() {
     if (ifs.good()) {
         while (getline(ifs, problem)) {
             getline(ifs, solution);
-            problem+="\n";
+            StaticCollection::swapEndlineWithDollar(problem);
             cache[problem] = solution;
         }
     }

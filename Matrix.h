@@ -12,6 +12,7 @@ private:
     int **matrix; //TODO - espically in constructor assignment
     MatrixEntry startEntry;
     MatrixEntry goalEntry;
+    set<State<MatrixEntry> *> allStatesCreated;
 
 public:
     Matrix(int matrixWidth, int matrixHeight, int **matrix,
@@ -24,10 +25,12 @@ public:
     virtual set<State<MatrixEntry> *>
     getAllPossibleStates(State<MatrixEntry> *state);
 
-    State<MatrixEntry>*
+    MatrixEntry getGoalEntry() { return goalEntry; }
+
+    State<MatrixEntry> *
     generateStateFromEntry(MatrixEntry entry, State<MatrixEntry> *predecessor);
 
-    virtual ~Matrix(); //TODO
+    virtual ~Matrix();
 
 };
 

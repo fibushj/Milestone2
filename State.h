@@ -9,17 +9,24 @@ class State {
 private:
     T state;
     double cost;
+    double heuristicCost;
     State<T> *cameFrom;
 public:
-    State(T state, double cost, State<T> *cameFrom);
+    State(T state, double cost, State<T> *cameFrom) : state(state),
+                                                      cost(cost),
+                                                      cameFrom(cameFrom) {
+        heuristicCost = 0;
+    }
 
-    ~State() { } //TODO
+    ~State() {} //TODO
 
     T getStateDescriptor() { return state; }
 
     double getCost() { return cost; }
 
-    void setCost(double cost) { this->cost = cost; }
+    double getHeuristicCost() { return heuristicCost; }
+
+    void setHeuristicCost(double heuristicCost) { this->heuristicCost = heuristicCost; }
 
     State<T> *getPrecedingState() { return cameFrom; }
 
@@ -28,19 +35,11 @@ public:
     bool operator==(State<T> &otherState);
 };
 
-template<class T>
-//for each state, we have the cost and when we are cameFrom. for the initial state, we came from null.
-State<T>::State(T state, double cost, State<T> *cameFrom) : state(state), cost(cost), cameFrom(cameFrom) {
-}
 
 template<class T>
-//compare into 2 states
 bool State<T>::operator==(State<T> &otherState) {
     return this->state == otherState.getStateDescriptor();
 }
-
-
-
 
 
 #endif //MILESTONE2_STATE_H

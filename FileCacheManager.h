@@ -1,6 +1,3 @@
-//
-// Created by Jonathan on 13/01/2019.
-//
 
 #ifndef MILESTONE2_FILECACHEMANAGER_H
 #define MILESTONE2_FILECACHEMANAGER_H
@@ -8,6 +5,7 @@
 #include "CacheManager.h"
 #include <string>
 #include <unordered_map>
+#include "StaticCollection.h"
 
 using namespace std;
 
