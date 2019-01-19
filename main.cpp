@@ -1,6 +1,4 @@
 #include <iostream>
-#include "AStar.h"
-#include "MatrixFactory.h"
 #include "FileCacheManager.h"
 #include "MyClientHandler.h"
 #include "SearcherSolver.h"
