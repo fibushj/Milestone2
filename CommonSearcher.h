@@ -53,7 +53,6 @@ public:
     virtual string backtracePath(State<T> *state) {
         stack<string> reversedOrder;
         while (state->getPrecedingState() != nullptr) {
-            i++;
             string currDirection = getRelationInDirection(
                     state->getPrecedingState(), state);
             reversedOrder.push(currDirection);
