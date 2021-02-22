@@ -10,3 +10,5 @@ The four algorithms were run on a benchmark of 10 matrices. Following are the re
 
 ![alt text](https://github.com/fibushj/graph-search-algorithms/blob/master/comparisons/num_nodes.png) <br> <br>
 ![alt text](https://github.com/fibushj/graph-search-algorithms/blob/master/comparisons/path_cost.png)
+
+Note: The DFS and BFS implementations terminate upon reaching the goal node without trying to minimize the path cost, thus not necessarily finding an optimal solution.
