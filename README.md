@@ -15,15 +15,3 @@ The four algorithms were run on a benchmark of 10 matrices. Following are the re
 ![alt text](https://github.com/fibushj/graph-search-algorithms/blob/master/comparisons/path_cost.png)
 
 Note: The DFS and BFS implementations terminate upon reaching the goal node without trying to minimize the path cost, thus not necessarily finding an optimal solution.
-
-
-הלקוח שולח שורה אחר שורה עד שמתקבלת שורה עם הערך “end“
- כל שורה מחילה ערכים מספריים המופרדים ע"י פסיק. כך אוסף השורות יוצר מטריצה של
-ערכים.
- לאחר מכן הלקוח שולח שתי שורות נוספות. בכל שורה שני ערכים המופרדים ע"י פסיק: שורה
-Row,Col .ועמודה
-o הערכים בשורה הראשונה מציינים את הכניסה לשטח
-o הערכים בשורה השנייה מציינים את היציאה מהשטח
- כעת השרת יחזיר מחרוזת אחת בלבד, עם ערכים המופרדים בפסיק. הערכים יהיו מסוג המילים
-}Right, Left, Down, Up }שמציינות את הכיוון שיש לנוע לפיו על מנת לחצות את השטח
-במסלול הזול ביותר.
