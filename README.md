@@ -8,3 +8,5 @@ algorithms from the search problem, regardless of the concrete representation of
 The four algorithms were run on a benchmark of 10 matrices. Following are the results: <br><br>
 
 
+![alt text](https://github.com/fibushj/graph-search-algorithms/blob/master/comparisons/num_nodes.png) <br>
+![alt text](https://github.com/fibushj/graph-search-algorithms/blob/master/comparisons/path_cost.png)
